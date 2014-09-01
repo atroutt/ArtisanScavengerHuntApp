@@ -16,7 +16,6 @@
 
 package com.google.wolff.androidhunt;
 
-
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -28,9 +27,9 @@ import android.view.View.OnTouchListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class TriviaQuestionActivity extends BaseActivity implements
-OnTouchListener {
+import com.artisan.incodeapi.ArtisanTrackingManager;
 
+public class TriviaQuestionActivity extends BaseActivity implements OnTouchListener {
 
 	LinearLayout linearLayout;
 	LinearLayout textViewLayout;
@@ -63,8 +62,7 @@ OnTouchListener {
 	}
 
 	public void setQuestion(TriviaQuestion tq) {
-		LinearLayout ll = (LinearLayout) getLayoutInflater().inflate(
-				R.layout.question_frag, null);
+		LinearLayout ll = (LinearLayout) getLayoutInflater().inflate(R.layout.question_frag, null);
 
 		TextView textView = (TextView) ll.findViewById(R.id.question_text_frag);
 
@@ -74,10 +72,8 @@ OnTouchListener {
 		textView.setVisibility(View.VISIBLE);
 
 		for (int i = 0; i < tq.answers.size(); i++) {
-			LinearLayout ll2 = (LinearLayout) getLayoutInflater().inflate(
-					R.layout.answer_frag, linearLayout);
-			AnswerTextView atv = (AnswerTextView) ll2
-					.findViewById(R.id.answer_text_frag);
+			LinearLayout ll2 = (LinearLayout) getLayoutInflater().inflate(R.layout.answer_frag, linearLayout);
+			AnswerTextView atv = (AnswerTextView) ll2.findViewById(R.id.answer_text_frag);
 			atv.setText(tq.answers.get(i));
 			atv.answerNum = i;
 			atv.setId(-1);
@@ -101,8 +97,7 @@ OnTouchListener {
 
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
-		final Clue clue = Hunt.getHunt(getResources(), getApplicationContext())
-				.getLastCompletedClue();
+		final Clue clue = Hunt.getHunt(getResources(), getApplicationContext()).getLastCompletedClue();
 
 		// Wait if we're waiting for toast pop.
 		if (hasAnswered) {
@@ -126,6 +121,7 @@ OnTouchListener {
 		DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
+
 				finish();
 			}
 		};
@@ -136,13 +132,13 @@ OnTouchListener {
 		keepAnimating = false;
 
 		if (tv.answerNum == clue.question.correctAnswer) {
-			builder.setMessage(clue.question.rightMessage)
-			.setPositiveButton("OK", dialogClickListener).setCancelable(false).show();
+			ArtisanTrackingManager.trackEvent("Correct answer on a trivia question");
+			builder.setMessage(clue.question.rightMessage).setPositiveButton("OK", dialogClickListener).setCancelable(false).show();
 
 			hunt.save(getResources(), getApplicationContext());
 		} else {
-			builder.setMessage(clue.question.wrongMessage)
-			.setPositiveButton("OK", dialogClickListener).setCancelable(false).show();
+			ArtisanTrackingManager.trackEvent("Wrong answer on a trivia question");
+			builder.setMessage(clue.question.wrongMessage).setPositiveButton("OK", dialogClickListener).setCancelable(false).show();
 		}
 
 		return true;

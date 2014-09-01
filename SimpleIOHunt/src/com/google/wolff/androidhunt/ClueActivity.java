@@ -27,6 +27,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.artisan.incodeapi.ArtisanTrackingManager;
+
 public class ClueActivity extends BaseActivity {
 
 	String lastClueFound;
@@ -121,8 +123,7 @@ public class ClueActivity extends BaseActivity {
 		int clueNumber = hunt.getClueDisplayNumber(clue);
 		int totalClues = hunt.getTotalClues();
 		String clueTitle = clue.displayName;
-		getActionBar().setTitle(
-				"#PhillyStartup Challenge: Clue #" + clueNumber + " of " + totalClues);
+		getActionBar().setTitle("Philly Startup Challenge: " + clueNumber + "/" + totalClues);
 		mHeading.setText(clueTitle);
 
 		// Display the correct number of circles on the clue
@@ -193,39 +194,35 @@ public class ClueActivity extends BaseActivity {
 			hunt.save(getResources(), getApplicationContext());
 
 			if (result.equals(Hunt.DECOY)) {
+				ArtisanTrackingManager.trackEvent("found a decoy");
 				hunt.soundManager.play(hunt.soundManager.rejected, this);
 				return;
 			}
 
 			if (result.equals(Hunt.ACK)) {
+				ArtisanTrackingManager.trackEvent("found a clue!");
 				updateTagDisplay(hunt, clue);
 				hunt.soundManager.play(hunt.soundManager.foundIt, this);
 				return;
 			}
 			if (result.equals(Hunt.ALREADY_FOUND)) {
-				Toast.makeText(
-						this,
-						"You already found " + lastClueFound + ".  "
-								+ clue.getStatus(hunt), Toast.LENGTH_SHORT)
-								.show();
+				ArtisanTrackingManager.trackEvent("found same clue again");
+				Toast.makeText(this, "You already found " + lastClueFound + ".  " + clue.getStatus(hunt), Toast.LENGTH_SHORT).show();
 				hunt.soundManager.play(hunt.soundManager.repeat, this);
 				return;
 			}
 			if (result.equals(Hunt.WRONG_CLUE)) {
-				Toast.makeText(
-						this,
-						"Tag " + lastClueFound + " is not part of this clue.  "
-								+ clue.getStatus(hunt), Toast.LENGTH_SHORT)
-								.show();
+				ArtisanTrackingManager.trackEvent("found the wrong clue");
+				Toast.makeText(this, "Tag " + lastClueFound + " is not part of this clue.  " + clue.getStatus(hunt), Toast.LENGTH_SHORT).show();
 				hunt.soundManager.play(hunt.soundManager.rejected, this);
 				return;
 			}
 			if (result.equals(Hunt.CLUE_COMPLETE)) {
+				ArtisanTrackingManager.trackEvent("found all clues!");
 				updateTagDisplay(hunt, clue);
 
 				hunt.soundManager.play(hunt.soundManager.foundItAll, this);
-				Toast.makeText(this, "Got 'em all!  Hang on for next clue...",
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, "Found it! Hang on for next clue...", Toast.LENGTH_SHORT).show();
 
 				findViewById(R.id.imageView1).setVisibility(View.INVISIBLE);
 				findViewById(R.id.clue_progress).setVisibility(View.VISIBLE);

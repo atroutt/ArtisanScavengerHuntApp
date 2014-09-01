@@ -16,10 +16,11 @@
 
 package com.google.wolff.androidhunt;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.artisan.activity.ArtisanActivity;
 
 /**
  * The base inheritor for all activities where you can
@@ -30,28 +31,28 @@ import android.view.MenuItem;
  * @author wolff
  *
  */
-public class BaseActivity extends Activity {
+public class BaseActivity extends ArtisanActivity {
 
-    public static final int REQUEST_ACHIEVEMENTS = 1001;
+	public static final int REQUEST_ACHIEVEMENTS = 1001;
 
-    public BaseActivity() {
-        super();
-    }
+	public BaseActivity() {
+		super();
+	}
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-        case R.id.menu_reset:
-            Intent intent = new Intent(this, TagsActivity.class);
-            startActivity(intent);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
- }
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.menu_reset:
+			Intent intent = new Intent(this, TagsActivity.class);
+			startActivity(intent);
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+}

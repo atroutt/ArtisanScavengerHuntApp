@@ -20,12 +20,13 @@ package com.google.wolff.androidhunt;
  * This is a shim launcher activity that redirects incoming
  * intents to the right place.
  */
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-public class NavActivity extends Activity {
+import com.artisan.activity.ArtisanActivity;
+
+public class NavActivity extends ArtisanActivity {
 
 	public final static String EXTRA_MESSAGE = "com.google.wolff.androidhunt.MESSAGE";
 	public final static String STORY_NEXT = "com.google.wolff.androidhunt.STORY_NEXT";

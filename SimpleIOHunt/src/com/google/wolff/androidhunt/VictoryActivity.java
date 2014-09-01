@@ -4,6 +4,8 @@ package com.google.wolff.androidhunt;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
+import com.artisan.incodeapi.ArtisanTrackingManager;
+
 public class VictoryActivity extends BaseActivity {
 
 	@SuppressLint("NewApi")
@@ -15,8 +17,7 @@ public class VictoryActivity extends BaseActivity {
 
 	@Override
 	protected void onResume() {
+		ArtisanTrackingManager.trackEvent("saw victory!");
 		super.onResume();
-		Hunt hunt = Hunt.getHunt(getResources(), getApplicationContext());
-
 	}
 }
