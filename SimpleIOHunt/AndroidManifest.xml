@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!--
   Copyright 2013 Google Inc.
 
@@ -13,78 +13,66 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
--->
+--><manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="2" android:versionName="2.0" package="com.google.wolff.androidhunt">
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.google.wolff.androidhunt"
-    android:versionCode="2"
-    android:versionName="2.0" >
+    <uses-sdk android:minSdkVersion="17" android:targetSdkVersion="20"/>
 
-    <uses-sdk
-        android:minSdkVersion="14"
-        android:targetSdkVersion="17" />
+    <uses-permission android:name="android.permission.NFC"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
-    <uses-permission android:name="android.permission.NFC" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-feature android:name="android.hardware.nfc" android:required="true"/>
 
-    <uses-feature
-        android:name="android.hardware.nfc"
-        android:required="true" />
+	<permission android:name="com.google.wolff.androidhunt.permission.C2D_MESSAGE" android:protectionLevel="signature"/>
+    <uses-permission android:name="com.google.wolff.androidhunt.permission.C2D_MESSAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
 
-    <application
-        android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/Theme.App" >
-        <meta-data
-            android:name="com.google.android.gms.games.APP_ID"
-            android:value="@string/app_name" />
+    <permission android:name="com.google.wolff.androidhunt.permission.C2D_MESSAGE" android:protectionLevel="signature"/>
+<uses-permission android:name="com.google.wolff.androidhunt.permission.C2D_MESSAGE"/>
+<application android:allowBackup="true" android:icon="@drawable/ic_launcher" android:label="@string/app_name" android:name=".ArtisanInstrumentedApplication" android:theme="@style/Theme.App">
+        <meta-data android:name="com.google.android.gms.games.APP_ID" android:value="@string/app_name"/>
 
-        <activity
-            android:name=".ClueActivity"
-            android:keepScreenOn="true"
-            android:label="@string/title_activity_clue_message"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" >
+        <activity android:keepScreenOn="true" android:label="@string/title_activity_clue_message" android:launchMode="singleTask" android:name=".ClueActivity" android:screenOrientation="portrait">
         </activity>
-        <activity
-            android:name=".NavActivity"
-            android:screenOrientation="portrait" >
+        <activity android:name=".NavActivity" android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity
-            android:name=".TagsActivity"
-            android:screenOrientation="portrait" >
+        <activity android:name=".TagsActivity" android:screenOrientation="portrait">
         </activity>
-        <activity
-            android:name=".ScreenSlidePagerActivity"
-            android:screenOrientation="portrait" >
+        <activity android:name=".ScreenSlidePagerActivity" android:screenOrientation="portrait">
         </activity>
-        <activity
-            android:name=".TriviaQuestionActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".VictoryActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".NFCShimActivity"
-            android:theme="@android:style/Theme.NoDisplay" >
+        <activity android:name=".TriviaQuestionActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".VictoryActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".NFCShimActivity" android:theme="@android:style/Theme.NoDisplay">
             <intent-filter>
-                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+                <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
 
-                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.DEFAULT"/>
 
-                <data
-                    android:host="startupchallenge"
-                    android:pathPrefix="/f"
-                    android:scheme="artisan" />
+                <data android:host="startupchallenge" android:pathPrefix="/f" android:scheme="artisan"/>
             </intent-filter>
         </activity>
+
+        <service android:name="com.artisan.services.ArtisanService"/>
+
+        <receiver android:name="com.artisan.push.ArtisanPushReceiver" android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+
+                <category android:name="com.google.wolff.androidhunt"/>
+            </intent-filter>
+        </receiver>
+
+        <service android:name="com.artisan.push.ArtisanPushService"/>
+
+        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
     </application>
 
 </manifest>
