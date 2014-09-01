@@ -36,7 +36,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="12dp"
         android:contentDescription="@string/nothing"
-        android:src="@drawable/logo" />
+        android:src="@drawable/stos" />
 
     <TextView
         android:id="@+id/textView5"

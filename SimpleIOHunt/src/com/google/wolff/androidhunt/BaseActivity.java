@@ -51,10 +51,6 @@ public class BaseActivity extends Activity {
             Intent intent = new Intent(this, TagsActivity.class);
             startActivity(intent);
             return true;
-        case R.id.menu_about:
-            intent = new Intent(this, AboutActivity.class);
-            startActivity(intent);
-            return true;
         }
         return super.onOptionsItemSelected(item);
     }

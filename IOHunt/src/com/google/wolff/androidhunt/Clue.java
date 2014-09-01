@@ -20,40 +20,39 @@ import java.util.ArrayList;
 
 public class Clue {
 
-    public String id;
-    public ArrayList<AHTag> tags;
-    public String displayName;
-    public String displayText;
-    public String displayImage;
-    public int shufflegroup;
-    TriviaQuestion question;
+	public String id;
+	public ArrayList<AHTag> tags;
+	public String displayName;
+	public String displayText;
+	public String displayImage;
+	public int shufflegroup;
+	TriviaQuestion question;
 
-    Clue(String id, String displayName, String displayText,
-            String displayImage) {
-        this.id = id;
-        this.displayName = displayName;
-        this.displayText = displayText;
-        this.displayImage = displayImage;
+	Clue(String id, String displayName, String displayText, String displayImage) {
+		this.id = id;
+		this.displayName = displayName;
+		this.displayText = displayText;
+		this.displayImage = displayImage;
 
-        tags = new ArrayList<AHTag>();
-    }
+		tags = new ArrayList<AHTag>();
+	}
 
-    int getCluesFound(Hunt hunt) {
-        int count = 0;
-        for (AHTag tag : tags) {
-            if (hunt.isTagFound(tag.id)) {
-                count++;
-            }
-        }
+	int getCluesFound(Hunt hunt) {
+		int count = 0;
+		for (AHTag tag : tags) {
+			if (hunt.isTagFound(tag.id)) {
+				count++;
+			}
+		}
 
-        return count;
-    }
+		return count;
+	}
 
-    String getStatus(Hunt hunt) {
-        return getCluesFound(hunt) + "/" + tags.size();
-    }
+	String getStatus(Hunt hunt) {
+		return getCluesFound(hunt) + "/" + tags.size();
+	}
 
-    void addTag(AHTag tag) {
-        tags.add(tag);
-    }
+	void addTag(AHTag tag) {
+		tags.add(tag);
+	}
 }

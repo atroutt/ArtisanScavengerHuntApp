@@ -1,38 +1,62 @@
 {
   type: "hunt",
-  displayName: "Test Hunt",
+  displayName: "PhillyStartup IceBucketChallenge",
   id: "1",
-  clues: [ 
+  clues: [
     {
       type: "clue",
-      id: "starterMat",
+      id: "arcweb",
       shufflegroup: 0,
       displayName: "Let's go!",
-      displayText: "Find this octopus, and then scan the three tags you find next to him.",
-      displayImage: "octopus.jpg",
-      tags: [        
-        {id: "gdg-0"},
-        {id: "gdg-1"},
-        {id: "gdg-2"}
+      displayText: "Head upstairs and scan the tag you find near this door to learn more.",
+      displayImage: "arcweb.jpg",
+      tags: [
+        {id: "arcweb"}
       ],
-      question: 
-      {  "question": "What is the name of the T-Rex on Google's Main campus?",
-         "answers": ["Larry", "Joe", "Stan"],
-         "correctAnswer": 2,
-         "wrongMessage": "No, it's Stan, just outside B44.\n",         
-         "rightMessage": "That's right!  It's Stan, who is sometimes covered in flamingos."
+      question:
+      {
+        "question": "What is the average life expectancy after ALS diagnosis?",
+         "answers": ["2-5 years", "5-7 years", "10-15 years"],
+         "correctAnswer": 0,
+         "wrongMessage": "The average life expectancy after ALS diagnosis is 2-5 years\n",
+         "rightMessage": "The average life expectancy after ALS diagnosis is 2-5 years"
       }
     },
     {
       type: "clue",
-      id: "goog",
+      id: "guru",
       shufflegroup: 1,
-      displayName: "Green is Good",
-      displayText: "Find this sign, then look for one more tag.",
-      displayImage: "greengoogle.jpg",
-      tags: [        
-        {id: "poster-1"}
-      ]
+      displayName: "Learn More",
+      displayText: "Can you find this stealthy startup? Scan the tag to learn more.",
+      displayImage: "guru.jpg",
+      tags: [
+        {id: "guru"}
+      ],
+      question:
+      {  "question": "Where does most of the funding come from for research into the causes and potential cures for rare diseases like ALS?",
+         "answers": ["Private Agencies", "Federal Government"],
+         "correctAnswer": 0,
+         "wrongMessage": "'The most exciting, high-risk, high-gain projects are often funded by private agencies like the ALS Association rather than the federal government' --Dr. Robert Brown, chair of neurology at UMass Medical School in Worcester\n",
+         "rightMessage": "'The most exciting, high-risk, high-gain projects are often funded by private agencies like the ALS Association rather than the federal government' --Dr. Robert Brown, chair of neurology at UMass Medical School in Worcester"
+      }
+    },
+    {
+      type: "clue",
+      id: "weblinc",
+      shufflegroup: 2,
+      displayName: "Learn More",
+      displayText: "This is probably the most deliciously located startup in Philly. Scan the tag for your next instructions!",
+      displayImage: "weblinc.jpg",
+      tags: [
+        {id: "weblinc"}
+      ],
+      question:
+      {  "question": "You have been challenged in #PhillyStartup #ALSIceBucketChallenge. What will you do?",
+         "answers": ["Donate to the ALS Philadelphia Chapter or other local charitable organizations.", "Ice Water", "Both"],
+         "correctAnswer": 2,
+         "wrongMessage": "Do you think I'm going to let you pick that?\n",
+         "rightMessage": "Awesome! Your team is waiting for you at a familiar local establishment."
+      }
     }
 ]
 }

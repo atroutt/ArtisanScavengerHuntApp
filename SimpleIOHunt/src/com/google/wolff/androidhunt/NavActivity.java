@@ -27,40 +27,34 @@ import android.util.Log;
 
 public class NavActivity extends Activity {
 
-    public final static String EXTRA_MESSAGE = "com.google.wolff.androidhunt.MESSAGE";
-    public final static String STORY_NEXT = "com.google.wolff.androidhunt.STORY_NEXT";
+	public final static String EXTRA_MESSAGE = "com.google.wolff.androidhunt.MESSAGE";
+	public final static String STORY_NEXT = "com.google.wolff.androidhunt.STORY_NEXT";
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 
-        Intent intent;
-        Hunt hunt = Hunt.getHunt(getResources(), getApplicationContext());
-        if (hunt.hasSeenIntro()) {
-            intent = new Intent(this, ClueActivity.class);
-        } else {
-            intent = new Intent(this, ScreenSlidePagerActivity.class);
-        }
+		Intent intent = new Intent(this, ClueActivity.class);
 
-        startActivity(intent);
-        finish();
-    }
+		startActivity(intent);
+		finish();
+	}
 
-    public String lastClue = null;
+	public String lastClue = null;
 
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
+	@Override
+	public void onStart() {
+		super.onStart();
+	}
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
+	@Override
+	protected void onStop() {
+		super.onStop();
+	}
 
-    @Override
-    public void onNewIntent(Intent intent) {
-        Log.w("AndroidHunt", "New intent");
-        Log.w("AndroidHunt", "Nav: Intent gotten: " + intent.getAction());
-    }
+	@Override
+	public void onNewIntent(Intent intent) {
+		Log.w("AndroidHunt", "New intent");
+		Log.w("AndroidHunt", "Nav: Intent gotten: " + intent.getAction());
+	}
 }

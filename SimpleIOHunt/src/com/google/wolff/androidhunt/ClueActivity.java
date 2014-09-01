@@ -20,6 +20,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -28,270 +29,270 @@ import android.widget.Toast;
 
 public class ClueActivity extends BaseActivity {
 
-    String lastClueFound;
-    String result;
+	String lastClueFound;
+	String result;
 
-    private ImageView mImgView;
-    private TextView mHeading;
-    private LinearLayout mTagConainer1;
-    private LinearLayout mTagConainer2;
-    private LinearLayout mTagConainer3;
-    private TextView mTag1NotFound;
-    private ImageView mTag1Found;
-    private TextView mTag2NotFound;
-    private ImageView mTag2Found;
-    private TextView mTag3NotFound;
-    private ImageView mTag3Found;
+	private ImageView mImgView;
+	private TextView mHeading;
+	private LinearLayout mTagConainer1;
+	private LinearLayout mTagConainer2;
+	private LinearLayout mTagConainer3;
+	private TextView mTag1NotFound;
+	private ImageView mTag1Found;
+	private TextView mTag2NotFound;
+	private ImageView mTag2Found;
+	private TextView mTag3NotFound;
+	private ImageView mTag3Found;
 
-    private Handler mHandler = new Handler();
+	private Handler mHandler = new Handler();
 
-    public Hunt getHunt() {
-        return Hunt.getHunt(getResources(), getApplicationContext());
-    }
+	public Hunt getHunt() {
+		return Hunt.getHunt(getResources(), getApplicationContext());
+	}
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_clue);
+		setContentView(R.layout.activity_clue);
 
-        mImgView = (ImageView) findViewById(R.id.imageView1);
-        mHeading = (TextView) findViewById(R.id.heading);
+		mImgView = (ImageView) findViewById(R.id.imageView1);
+		mHeading = (TextView) findViewById(R.id.heading);
 
-        mTagConainer1 = (LinearLayout) findViewById(R.id.tag_container_1);
-        mTagConainer2 = (LinearLayout) findViewById(R.id.tag_container_2);
-        mTagConainer3 = (LinearLayout) findViewById(R.id.tag_container_3);
+		mTagConainer1 = (LinearLayout) findViewById(R.id.tag_container_1);
+		mTagConainer2 = (LinearLayout) findViewById(R.id.tag_container_2);
+		mTagConainer3 = (LinearLayout) findViewById(R.id.tag_container_3);
 
-        mTag1NotFound = (TextView) findViewById(R.id.tag_1_notfound_marker);
-        mTag1Found = (ImageView) findViewById(R.id.tag_1_found_marker);
-        mTag2NotFound = (TextView) findViewById(R.id.tag_2_notfound_marker);
-        mTag2Found = (ImageView) findViewById(R.id.tag_2_found_marker);
-        mTag3NotFound = (TextView) findViewById(R.id.tag_3_notfound_marker);
-        mTag3Found = (ImageView) findViewById(R.id.tag_3_found_marker);
+		mTag1NotFound = (TextView) findViewById(R.id.tag_1_notfound_marker);
+		mTag1Found = (ImageView) findViewById(R.id.tag_1_found_marker);
+		mTag2NotFound = (TextView) findViewById(R.id.tag_2_notfound_marker);
+		mTag2Found = (ImageView) findViewById(R.id.tag_2_found_marker);
+		mTag3NotFound = (TextView) findViewById(R.id.tag_3_notfound_marker);
+		mTag3Found = (ImageView) findViewById(R.id.tag_3_found_marker);
 
-        mImgView.setVisibility(View.INVISIBLE);
+		mImgView.setVisibility(View.INVISIBLE);
 
-        mImgView.setAdjustViewBounds(true);
-        mImgView.setMaxHeight(250);
-    }
+		mImgView.setAdjustViewBounds(true);
+		mImgView.setMaxHeight(250);
+	}
 
-    public void onToVictory() {
-        Intent intent = new Intent(this, VictoryActivity.class);
+	public void onToVictory() {
+		Intent intent = new Intent(this, VictoryActivity.class);
 
-        startActivity(intent);
-    }
+		startActivity(intent);
+	}
 
-    public void refresh() {
-        Hunt hunt = Hunt.getHunt(getResources(), this.getApplicationContext());
+	public void refresh() {
+		Hunt hunt = Hunt.getHunt(getResources(), this.getApplicationContext());
 
-        // In very rare cases, we may reset the data, and we need to back out
-        // and start the story over
-        if (!hunt.hasSeenIntro()) {
-            Intent intent = new Intent(this, ScreenSlidePagerActivity.class);
-            startActivity(intent);
-            finish();
-            return;
-        }
+		Clue clue = hunt.getCurrentClue();
 
-        Clue clue = hunt.getCurrentClue();
+		if (clue == null) {
+			onToVictory();
+			finish();
+			return;
+		}
 
-        if (clue == null) {
-            onToVictory();
-            finish();
-            return;
-        }
+		if (hunt.getQuestionState() != Hunt.QUESTION_STATE_NONE && clue.question != null) {
+			Log.e("WTF", "YOU NEED TO ANSWER A QUESTION");
+			Intent newIntent = new Intent(this, TriviaQuestionActivity.class);
+			startActivity(newIntent);
 
-        mImgView.setAdjustViewBounds(true);
-        hunt.setClueImage(getResources(), mImgView);
+		} else if (hunt.getQuestionState() != Hunt.QUESTION_STATE_NONE) {
+			// This is also a rare case, usually triggered by swapping the
+			// hunt data out
+			Log.e("WTF", "Your question hunt state is bad.  I'm fixin' it.");
+			hunt.setQuestionState(Hunt.QUESTION_STATE_NONE);
+		}
 
-        // Set visibilities
-        mImgView.setVisibility(View.VISIBLE);
-        View view = findViewById(R.id.clue_progress);
-        view.setVisibility(View.INVISIBLE);
+		mImgView.setAdjustViewBounds(true);
+		hunt.setClueImage(getResources(), mImgView);
 
-        findViewById(R.id.clue_progress).setVisibility(View.INVISIBLE);
+		// Set visibilities
+		mImgView.setVisibility(View.VISIBLE);
+		View view = findViewById(R.id.clue_progress);
+		view.setVisibility(View.INVISIBLE);
 
-        TextView displayText = (TextView) findViewById(R.id.displayText);
-        displayText.setText(clue.displayText);
+		findViewById(R.id.clue_progress).setVisibility(View.INVISIBLE);
 
-        int clueNumber = hunt.getClueDisplayNumber(clue);
-        int totalClues = hunt.getTotalClues();
-        String clueTitle = clue.displayName;
-        getActionBar().setTitle(
-                "Android Hunt: Clue #" + clueNumber + " of " + totalClues);
-        mHeading.setText(clueTitle);
+		TextView displayText = (TextView) findViewById(R.id.displayText);
+		displayText.setText(clue.displayText);
 
-        // Display the correct number of circles on the clue
-        int tagCount = clue.tags.size();
+		int clueNumber = hunt.getClueDisplayNumber(clue);
+		int totalClues = hunt.getTotalClues();
+		String clueTitle = clue.displayName;
+		getActionBar().setTitle(
+				"#PhillyStartup Challenge: Clue #" + clueNumber + " of " + totalClues);
+		mHeading.setText(clueTitle);
 
-        switch (tagCount) {
-        case 0:
-            mTagConainer1.setVisibility(View.GONE);
-            mTagConainer2.setVisibility(View.GONE);
-            mTagConainer3.setVisibility(View.GONE);
-            break;
-        case 1:
-            mTagConainer1.setVisibility(View.VISIBLE);
-            mTagConainer2.setVisibility(View.GONE);
-            mTagConainer3.setVisibility(View.GONE);
-            break;
-        case 2:
-            mTagConainer1.setVisibility(View.VISIBLE);
-            mTagConainer2.setVisibility(View.VISIBLE);
-            mTagConainer3.setVisibility(View.GONE);
-            break;
-        case 3:
-            mTagConainer1.setVisibility(View.VISIBLE);
-            mTagConainer2.setVisibility(View.VISIBLE);
-            mTagConainer3.setVisibility(View.VISIBLE);
-            break;
-        default:
-            throw new IllegalStateException("Clue tag max of 3 exceeded");
-        }
+		// Display the correct number of circles on the clue
+		int tagCount = clue.tags.size();
 
-        updateTagDisplay(hunt, clue);
-    }
+		switch (tagCount) {
+		case 0:
+			mTagConainer1.setVisibility(View.GONE);
+			mTagConainer2.setVisibility(View.GONE);
+			mTagConainer3.setVisibility(View.GONE);
+			break;
+		case 1:
+			mTagConainer1.setVisibility(View.VISIBLE);
+			mTagConainer2.setVisibility(View.GONE);
+			mTagConainer3.setVisibility(View.GONE);
+			break;
+		case 2:
+			mTagConainer1.setVisibility(View.VISIBLE);
+			mTagConainer2.setVisibility(View.VISIBLE);
+			mTagConainer3.setVisibility(View.GONE);
+			break;
+		case 3:
+			mTagConainer1.setVisibility(View.VISIBLE);
+			mTagConainer2.setVisibility(View.VISIBLE);
+			mTagConainer3.setVisibility(View.VISIBLE);
+			break;
+		default:
+			throw new IllegalStateException("Clue tag max of 3 exceeded");
+		}
 
-    @Override
-    public void onNewIntent(Intent intent) {
-        setIntent(intent);
-    }
+		updateTagDisplay(hunt, clue);
+	}
 
-    @Override
-    public void onResume() {
-        super.onResume();
+	@Override
+	public void onNewIntent(Intent intent) {
+		setIntent(intent);
+	}
 
-        Intent intent = getIntent();
+	@Override
+	public void onResume() {
+		super.onResume();
 
-        if (intent == null) {
-            refresh();
-            return;
-        }
+		Intent intent = getIntent();
 
-        lastClueFound = intent.getStringExtra(NavActivity.EXTRA_MESSAGE);
-        setIntent(null);
+		if (intent == null) {
+			refresh();
+			return;
+		}
 
-        Hunt hunt = Hunt.getHunt(getResources(), this.getApplicationContext());
+		lastClueFound = intent.getStringExtra(NavActivity.EXTRA_MESSAGE);
+		setIntent(null);
 
-        final Clue clue = hunt.getCurrentClue();
+		Hunt hunt = Hunt.getHunt(getResources(), this.getApplicationContext());
 
-        if (clue == null) {
-            // You're probably finished with the hunt, so show the
-            // / victory screen
-            onToVictory();
-            finish();
+		final Clue clue = hunt.getCurrentClue();
 
-            return;
-        }
+		if (clue == null) {
+			onToVictory();
+			finish();
 
-        // Got here without seeing intro---bail!
-        if (!hunt.hasSeenIntro()) {
-            Intent newIntent = new Intent(this, ScreenSlidePagerActivity.class);
-            startActivity(newIntent);
-            finish();
-            return;
-        }
+			return;
+		}
 
-        if (lastClueFound != null) {
-            refresh();
+		if (lastClueFound != null) {
+			refresh();
 
-            result = hunt.findTag(lastClueFound);
-            hunt.save(getResources(), getApplicationContext());
+			result = hunt.findTag(lastClueFound);
+			hunt.save(getResources(), getApplicationContext());
 
-            if (result.equals(Hunt.DECOY)) {
-                intent = new Intent(this, DecoyActivity.class);
-                startActivity(intent);
-                hunt.soundManager.play(hunt.soundManager.rejected, this);
-                return;
-            }
+			if (result.equals(Hunt.DECOY)) {
+				hunt.soundManager.play(hunt.soundManager.rejected, this);
+				return;
+			}
 
-            if (result.equals(Hunt.ACK)) {
-                updateTagDisplay(hunt, clue);
-                hunt.soundManager.play(hunt.soundManager.foundIt, this);
-                return;
-            }
-            if (result.equals(Hunt.ALREADY_FOUND)) {
-                Toast.makeText(
-                        this,
-                        "You already found " + lastClueFound + ".  "
-                                + clue.getStatus(hunt), Toast.LENGTH_SHORT)
-                        .show();
-                hunt.soundManager.play(hunt.soundManager.repeat, this);
-                return;
-            }
-            if (result.equals(Hunt.WRONG_CLUE)) {
-                Toast.makeText(
-                        this,
-                        "Tag " + lastClueFound + " is not part of this clue.  "
-                                + clue.getStatus(hunt), Toast.LENGTH_SHORT)
-                        .show();
-                hunt.soundManager.play(hunt.soundManager.rejected, this);
-                return;
-            }
-            if (result.equals(Hunt.CLUE_COMPLETE)) {
-                updateTagDisplay(hunt, clue);
+			if (result.equals(Hunt.ACK)) {
+				updateTagDisplay(hunt, clue);
+				hunt.soundManager.play(hunt.soundManager.foundIt, this);
+				return;
+			}
+			if (result.equals(Hunt.ALREADY_FOUND)) {
+				Toast.makeText(
+						this,
+						"You already found " + lastClueFound + ".  "
+								+ clue.getStatus(hunt), Toast.LENGTH_SHORT)
+								.show();
+				hunt.soundManager.play(hunt.soundManager.repeat, this);
+				return;
+			}
+			if (result.equals(Hunt.WRONG_CLUE)) {
+				Toast.makeText(
+						this,
+						"Tag " + lastClueFound + " is not part of this clue.  "
+								+ clue.getStatus(hunt), Toast.LENGTH_SHORT)
+								.show();
+				hunt.soundManager.play(hunt.soundManager.rejected, this);
+				return;
+			}
+			if (result.equals(Hunt.CLUE_COMPLETE)) {
+				updateTagDisplay(hunt, clue);
 
-                hunt.soundManager.play(hunt.soundManager.foundItAll, this);
-                Toast.makeText(this, "Got 'em all!  Hang on for next clue...",
-                        Toast.LENGTH_SHORT).show();
+				hunt.soundManager.play(hunt.soundManager.foundItAll, this);
+				Toast.makeText(this, "Got 'em all!  Hang on for next clue...",
+						Toast.LENGTH_SHORT).show();
 
-                findViewById(R.id.imageView1).setVisibility(View.INVISIBLE);
-                findViewById(R.id.clue_progress).setVisibility(View.VISIBLE);
+				findViewById(R.id.imageView1).setVisibility(View.INVISIBLE);
+				findViewById(R.id.clue_progress).setVisibility(View.VISIBLE);
 
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        refresh();
-                    }
-                }, 3000);
+				final Hunt _theHunt = hunt;
+				mHandler.postDelayed(new Runnable() {
+					@Override
+					public void run() {
 
-                return;
-            }
-        } else {
-            refresh();
-        }
-    }
+						if (clue.question != null) {
+							Intent newIntent = new Intent(ClueActivity.this, TriviaQuestionActivity.class);
+							_theHunt.setQuestionState(Hunt.QUESTION_STATE_QUESTIONING);
+							_theHunt.save(getResources(), getApplicationContext());
+							startActivity(newIntent);
+						} else {
+							refresh();
+						}
+					}
+				}, 3000);
 
-    AlertDialog mDialog;
+				return;
+			}
+		} else {
+			refresh();
+		}
+	}
 
-    private void updateTagDisplay(Hunt hunt, Clue clue) {
-        int tagsFound = clue.getCluesFound(hunt);
-        switch (tagsFound) {
-        case 0:
-            mTag1NotFound.setVisibility(View.VISIBLE);
-            mTag2NotFound.setVisibility(View.VISIBLE);
-            mTag3NotFound.setVisibility(View.VISIBLE);
-            mTag1Found.setVisibility(View.GONE);
-            mTag2Found.setVisibility(View.GONE);
-            mTag3Found.setVisibility(View.GONE);
-            break;
-        case 1:
-            mTag1NotFound.setVisibility(View.GONE);
-            mTag2NotFound.setVisibility(View.VISIBLE);
-            mTag3NotFound.setVisibility(View.VISIBLE);
-            mTag1Found.setVisibility(View.VISIBLE);
-            mTag2Found.setVisibility(View.GONE);
-            mTag3Found.setVisibility(View.GONE);
-            break;
-        case 2:
-            mTag1NotFound.setVisibility(View.GONE);
-            mTag2NotFound.setVisibility(View.GONE);
-            mTag3NotFound.setVisibility(View.VISIBLE);
-            mTag1Found.setVisibility(View.VISIBLE);
-            mTag2Found.setVisibility(View.VISIBLE);
-            mTag3Found.setVisibility(View.GONE);
-            break;
-        case 3:
-            mTag1NotFound.setVisibility(View.GONE);
-            mTag2NotFound.setVisibility(View.GONE);
-            mTag3NotFound.setVisibility(View.GONE);
-            mTag1Found.setVisibility(View.VISIBLE);
-            mTag2Found.setVisibility(View.VISIBLE);
-            mTag3Found.setVisibility(View.VISIBLE);
-            break;
-        default:
-            throw new IllegalStateException("Clue tag max of 3 exceeded");
+	AlertDialog mDialog;
 
-        }
-    }
+	private void updateTagDisplay(Hunt hunt, Clue clue) {
+		int tagsFound = clue.getCluesFound(hunt);
+		switch (tagsFound) {
+		case 0:
+			mTag1NotFound.setVisibility(View.VISIBLE);
+			mTag2NotFound.setVisibility(View.VISIBLE);
+			mTag3NotFound.setVisibility(View.VISIBLE);
+			mTag1Found.setVisibility(View.GONE);
+			mTag2Found.setVisibility(View.GONE);
+			mTag3Found.setVisibility(View.GONE);
+			break;
+		case 1:
+			mTag1NotFound.setVisibility(View.GONE);
+			mTag2NotFound.setVisibility(View.VISIBLE);
+			mTag3NotFound.setVisibility(View.VISIBLE);
+			mTag1Found.setVisibility(View.VISIBLE);
+			mTag2Found.setVisibility(View.GONE);
+			mTag3Found.setVisibility(View.GONE);
+			break;
+		case 2:
+			mTag1NotFound.setVisibility(View.GONE);
+			mTag2NotFound.setVisibility(View.GONE);
+			mTag3NotFound.setVisibility(View.VISIBLE);
+			mTag1Found.setVisibility(View.VISIBLE);
+			mTag2Found.setVisibility(View.VISIBLE);
+			mTag3Found.setVisibility(View.GONE);
+			break;
+		case 3:
+			mTag1NotFound.setVisibility(View.GONE);
+			mTag2NotFound.setVisibility(View.GONE);
+			mTag3NotFound.setVisibility(View.GONE);
+			mTag1Found.setVisibility(View.VISIBLE);
+			mTag2Found.setVisibility(View.VISIBLE);
+			mTag3Found.setVisibility(View.VISIBLE);
+			break;
+		default:
+			throw new IllegalStateException("Clue tag max of 3 exceeded");
+
+		}
+	}
 }
