@@ -26,16 +26,16 @@
     <string name="default_background">""</string>
     <string name="default_button_color">"#80c465"</string>
     <string name="default_text_color">"#00181c"</string>
-    <string name="title_activity_clue_message">#PhillyStartup #ALSIceBucketChallenge</string>
+    <string name="title_activity_clue_message">Philly Startup ALS Ice Bucket Challenge</string>
     <string
-        name="preference_file_key">com.google.wolff.PREFERENCE_FILE_KEY</string>
+        name="preference_file_key">com.artisan.scavenger.PREFERENCE_FILE_KEY</string>
     <string name="continue1">Continue</string>
     <string name="debug">Debug</string>
     <string name="Story">Story</string>
     <string name="lets_go">Let\'s go!</string>
     <string name="reset_this">Reset Tags</string>
     <string name="back">BACK</string>
-    <string name="youwin">You have accepted the challenge!</string>
+    <string name="youwin">Challenge Accepted!</string>
     <string name="next">NEXT</string>
     <string name="menu_settings"></string>
     <string name="menu_achievements">Achievements</string>
@@ -51,8 +51,8 @@
     <string name="between_clues_first_time">Between clues, we may ask you a bonus question for EXTRA ACHIEVEMENTS!\n\nThe questions are timed, so answer as fast as you can!\nOf course, it\'s OK to use Google Search to help you!</string>
     <string name="between_clues_next_time">It\'s time for another trivia question!\n\nGood luck!</string>
     <string name="start_">Start!</string>
-    <string name="time_left">Time left</string>
-    <string name="return_to_sandbox">Your team is waiting! Take a seat</string>
+    <string name="time_left">Do you know?</string>
+    <string name="return_to_sandbox">THANKS FOR PLAYING!\n\nTake a seat with your team to complete the challenge.</string>
     <string name="congratulations">Congratulations!</string>
     <string name="ok">OK</string>
     
