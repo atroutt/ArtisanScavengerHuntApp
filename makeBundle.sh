@@ -1,7 +1,6 @@
 rm -f hunt.zip
 
 zip hunt.zip huntdata/*
-cp hunt.zip IOHunt/res/raw/
 cp hunt.zip HuntWriter/res/raw/
 cp hunt.zip SimpleIOHunt/res/raw/
 

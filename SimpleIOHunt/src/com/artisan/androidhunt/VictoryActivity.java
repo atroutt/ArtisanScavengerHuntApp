@@ -1,5 +1,5 @@
 
-package com.google.wolff.androidhunt;
+package com.artisan.androidhunt;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;

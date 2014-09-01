@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.wolff.androidhunt;
+package com.artisan.androidhunt;
 
 import android.app.Activity;
 import android.content.Context;

@@ -13,7 +13,7 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
---><manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="2" android:versionName="2.0" package="com.google.wolff.androidhunt">
+--><manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="2" android:versionName="2.0" package="com.artisan.androidhunt">
 
     <uses-sdk android:minSdkVersion="17" android:targetSdkVersion="20"/>
 
@@ -23,34 +23,32 @@
 
     <uses-feature android:name="android.hardware.nfc" android:required="true"/>
 
-	<permission android:name="com.google.wolff.androidhunt.permission.C2D_MESSAGE" android:protectionLevel="signature"/>
-    <uses-permission android:name="com.google.wolff.androidhunt.permission.C2D_MESSAGE"/>
+	<permission android:name="com.artisan.androidhunt.permission.C2D_MESSAGE" android:protectionLevel="signature"/>
+    <uses-permission android:name="com.artisan.androidhunt.permission.C2D_MESSAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.GET_TASKS"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
 
-    <permission android:name="com.google.wolff.androidhunt.permission.C2D_MESSAGE" android:protectionLevel="signature"/>
-<uses-permission android:name="com.google.wolff.androidhunt.permission.C2D_MESSAGE"/>
-<application android:allowBackup="true" android:icon="@drawable/ic_launcher" android:label="@string/app_name" android:name=".ArtisanInstrumentedApplication" android:theme="@style/Theme.App">
+<application android:allowBackup="true" android:icon="@drawable/ic_launcher" android:label="@string/app_name" android:name="com.artisan.androidhunt.ArtisanInstrumentedApplication" android:theme="@style/Theme.App">
         <meta-data android:name="com.google.android.gms.games.APP_ID" android:value="@string/app_name"/>
 
-        <activity android:keepScreenOn="true" android:label="@string/title_activity_clue_message" android:launchMode="singleTask" android:name=".ClueActivity" android:screenOrientation="portrait">
+        <activity android:keepScreenOn="true" android:label="@string/title_activity_clue_message" android:launchMode="singleTask" android:name="com.artisan.androidhunt.ClueActivity" android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".NavActivity" android:screenOrientation="portrait">
+        <activity android:name="com.artisan.androidhunt.NavActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".TagsActivity" android:screenOrientation="portrait">
+        <activity android:name="com.artisan.androidhunt.TagsActivity" android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ScreenSlidePagerActivity" android:screenOrientation="portrait">
+        <activity android:name="com.artisan.androidhunt.ScreenSlidePagerActivity" android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".TriviaQuestionActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".VictoryActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".NFCShimActivity" android:theme="@android:style/Theme.NoDisplay">
+        <activity android:name="com.artisan.androidhunt.TriviaQuestionActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.artisan.androidhunt.VictoryActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.artisan.androidhunt.NFCShimActivity" android:theme="@android:style/Theme.NoDisplay">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
 
@@ -66,7 +64,7 @@
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
 
-                <category android:name="com.google.wolff.androidhunt"/>
+                <category android:name="com.artisan.androidhunt"/>
             </intent-filter>
         </receiver>
 

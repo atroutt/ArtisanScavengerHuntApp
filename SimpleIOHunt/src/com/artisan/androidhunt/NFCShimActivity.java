@@ -1,4 +1,4 @@
-package com.google.wolff.androidhunt;
+package com.artisan.androidhunt;
 
 import java.util.List;
 

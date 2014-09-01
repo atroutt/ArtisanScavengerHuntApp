@@ -1,4 +1,4 @@
-package com.google.wolff.androidhunt;
+package com.artisan.androidhunt;
 
 import com.artisan.application.ArtisanApplication;
 import com.artisan.manager.ArtisanManager;
