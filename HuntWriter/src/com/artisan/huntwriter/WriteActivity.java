@@ -1,4 +1,4 @@
-package com.google.example.huntwriter;
+package com.artisan.huntwriter;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -22,9 +22,9 @@ import android.widget.CheckedTextView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.wolff.androidhunt.AHTag;
-import com.google.wolff.androidhunt.HuntLite;
-import com.google.wolff.androidhunt.TagListAdapter;
+import com.artisan.androidhunt.AHTag;
+import com.artisan.androidhunt.HuntLite;
+import com.artisan.androidhunt.TagListAdapter;
 
 public class WriteActivity extends Activity implements OnItemClickListener {
 	private static NfcAdapter mAdapter;

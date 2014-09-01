@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.wolff.androidhunt;
-
-import com.google.example.huntwriter.R;
+package com.artisan.androidhunt;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -25,25 +23,27 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.artisan.huntwriter.R;
+
 public class TagListAdapter extends ArrayAdapter<AHTag> {
-    private final Context context;
-    private final HuntLite hunt;
+	private final Context context;
+	private final HuntLite hunt;
 
-    public TagListAdapter(Context context, HuntLite hunt) {
-        super(context, R.layout.row_layout, hunt.tagList);
-        this.context = context;
-        this.hunt = hunt;
-    }
+	public TagListAdapter(Context context, HuntLite hunt) {
+		super(context, R.layout.row_layout, hunt.tagList);
+		this.context = context;
+		this.hunt = hunt;
+	}
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.row_layout, parent, false);
-        TextView textView = (TextView) rowView.findViewById(R.id.label);
-        AHTag theTag = hunt.tagList.get(position);
-        textView.setText(theTag.toString());
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		LayoutInflater inflater = (LayoutInflater) context
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		View rowView = inflater.inflate(R.layout.row_layout, parent, false);
+		TextView textView = (TextView) rowView.findViewById(R.id.label);
+		AHTag theTag = hunt.tagList.get(position);
+		textView.setText(theTag.toString());
 
-        return rowView;
-    }
+		return rowView;
+	}
 }
