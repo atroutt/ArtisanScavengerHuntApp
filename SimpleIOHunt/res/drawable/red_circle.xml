@@ -27,7 +27,7 @@ xmlns:android="http://schemas.android.com/apk/res/android">
     </shape>
 </item>
 <item android:drawable="@drawable/solid_circle"/>
-<item android:drawable="@drawable/pawprint"
+<item android:drawable="@drawable/ic_action_star"
       android:top="5dp"
       android:bottom="5dp"
       android:left="5dp"
