@@ -18,8 +18,8 @@
         "question": "What is the average life expectancy after ALS diagnosis?",
          "answers": ["2-5 years", "5-7 years", "10-15 years"],
          "correctAnswer": 0,
-         "wrongMessage": "The average life expectancy after ALS diagnosis is 2-5 years\n",
-         "rightMessage": "The average life expectancy after ALS diagnosis is 2-5 years"
+         "wrongMessage": "Actually, the average life expectancy after ALS diagnosis is 2-5 years",
+         "rightMessage": "CORRECT\n\nThe average life expectancy after ALS diagnosis is 2-5 years"
       }
     },
     {
@@ -36,8 +36,8 @@
       {  "question": "Where does most of the funding come from for research into the causes and potential cures for rare diseases like ALS?",
          "answers": ["Private Agencies", "Federal Government"],
          "correctAnswer": 0,
-         "wrongMessage": "'The most exciting, high-risk, high-gain projects are often funded by private agencies like the ALS Association rather than the federal government' --Dr. Robert Brown, chair of neurology at UMass Medical School in Worcester\n",
-         "rightMessage": "'The most exciting, high-risk, high-gain projects are often funded by private agencies like the ALS Association rather than the federal government' --Dr. Robert Brown, chair of neurology at UMass Medical School in Worcester"
+         "wrongMessage": "Actually, 'the most exciting, high-risk, high-gain projects are often funded by private agencies like the ALS Association rather than the federal government'\n\n--Dr. Robert Brown, chair of neurology at UMass Medical School in Worcester",
+         "rightMessage": "CORRECT\n\n'The most exciting, high-risk, high-gain projects are often funded by private agencies like the ALS Association rather than the federal government'\n\n--Dr. Robert Brown, chair of neurology at UMass Medical School in Worcester"
       }
     },
     {
@@ -51,11 +51,11 @@
         {id: "weblinc"}
       ],
       question:
-      {  "question": "You have been challenged in #PhillyStartup #ALSIceBucketChallenge. What will you do?",
-         "answers": ["Donate to the ALS Philadelphia Chapter or other local charitable organizations.", "Ice Water", "Both"],
+      {  "question": "You have been challenged in the Philly Startup ALS Ice Bucket Challenge.\n\nWhat will you do?",
+         "answers": ["Donate to the ALS Philadelphia Chapter or another local charity.", "Ice Water", "Both"],
          "correctAnswer": 2,
-         "wrongMessage": "Do you think I'm going to let you pick that?\n",
-         "rightMessage": "Awesome! Your team is waiting for you at a familiar local establishment."
+         "wrongMessage": "The correct option is both!",
+         "rightMessage": "Awesome!\n\nYour team is waiting for you at a familiar local establishment.\n\nCan you guess which one?"
       }
     }
 ]
