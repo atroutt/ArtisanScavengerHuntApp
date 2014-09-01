@@ -86,7 +86,7 @@ strings or image resources.
 
 The hunt data in this version of Android Hunt is stored in a single
 .zip file for convenience in <tt>/res/raw/hunt.zip</tt>.  The unzipped
-data can be found in <tt>huntdata/</tt>. 
+data can be found in <tt>huntdata/</tt>.
 
 ### Making a new hunt
 
@@ -114,8 +114,8 @@ This is the shape of a Hunt in .json:
 {
   type: "hunt",  # Not really used, but nice for your editor
   displayName: "Test Hunt", # Not used
-  id: "1", 
-  clues: [  # list of clues 
+  id: "1",
+  clues: [  # list of clues
   ]
 }
 </code></pre>
@@ -150,7 +150,7 @@ Here's the .json snippet for that clue:
       displayName: "Getting warmer!",
       displayText: "Find this item and scan any tags you find there!",
       displayImage: "stove.jpg", # Corresponds to image file; png/jpg accepted
-      tags: [        
+      tags: [
         {id: "stove-0"},
         {id: "stove-1"},
         {id: "stove-2"}
@@ -165,6 +165,27 @@ shufflegroup 0 are shown first, then all the clues in shufflegroup 1,
 etc.  The clues are shuffled once per phone, so you will always get
 the same shuffle, but different people with different phones would get
 different orders.
+
+## Trivia Questions
+
+Each clue object has an optional <tt>question</tt> field that looks a
+bit like this:
+
+<pre><code>
+      question:
+      {  "question": "What is the name of the T-Rex on Google's Main campus?",
+         "answers": ["Larry", "Joe", "Stan"],
+         "correctAnswer": 2,
+         "wrongMessage": "No, it's Stan, just outside B44.\n",
+         "rightMessage": "That's right!  It's Stan, who is sometimes covered in flamingos."
+      }
+</code></pre>
+
+The values should be self-explanatory.
+
+You need at least 5 trivia questions to set off all the achievements.
+Trivia questions are attached directly to the clue object as shown in <tt>samplehunt.json.</tt>
+
 
 ### Tags
 
@@ -184,18 +205,6 @@ There are other kinds of data you can store, including external
 records just for your app which are harder to fake.  However, links
 are very convenient, and unless you expect a lot of cheating (an NFC
 hunt only for NFC enthusiast hackers?) you should be OK.
-
-#### Decoy Tags
-
-If you want to surprise your users, you can have a decoy tag, which is
-just a tag with this URL:
-
-    https://nfchunt.appspot.com/f?c=decoy
-
-For obvious reasons, don't name an normal tag with the id "decoy".
-
-Scanning a decoy brings up Villain Android.
-
 
 #### Writing tags
 
